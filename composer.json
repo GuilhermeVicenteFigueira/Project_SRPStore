@@ -1,0 +1,15 @@
+{
+    "name": "pichau/solid_products",
+    "autoload": {
+        "psr-4": {
+            "Pichau\\SolidProducts\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "GuilhermeVicenteFigueira",
+            "email": "figueira.gui1@gmail.com"
+        }
+    ],
+    "require": {}
+}
