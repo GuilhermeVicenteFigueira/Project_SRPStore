@@ -8,38 +8,37 @@ use src\Contracts\ProductValidator;
 
 final class SimpleProductValidator implements ProductValidator
 {
-
     public function validate(array $input): array
     {
         $log = [];
 
-        $name = $input['name'] ?? '';
-        $price = $input['price'] ?? '';
+        $name = trim($input['name'] ?? '');
+        $price = $input['price'] ?? null;
 
-        if(empty($name)) {
-            $log[] = "Nome é Obrigatório";
+    
+        if ($name === '') {
+            $log[] = "Nome é obrigatório";
         }
-
-        if(strlen($name) > 100) {
+        if ($name !== '' && strlen($name) < 2) {
+            $log[] = "Rejeitado! nome muito pequeno";
+        }
+        if ($name !== '' && strlen($name) > 100) {
             $log[] = "Rejeitado! nome muito grande";
         }
 
-        if(strlen($name) < 2) {
-            $log[] = "Rejeitado! nome muito pequeno";
+   
+        if ($price === null || $price === '') {
+            $log[] = "Preço é obrigatório";
         }
-
-        if($price < 0) {
+        if ($price !== null && $price !== '' && !is_numeric($price)) {
+            $log[] = "Rejeitado! o preço deve ser um numérico";
+        }
+        if ($price !== null && $price !== '' && is_numeric($price) && $price < 0) {
             $log[] = "Rejeitado! preço está negativo";
         }
 
-        if(!is_float($price)) {
-            $log[] = "Rejeitado! o preço deve ser um numérico";
-        }
-
-        if ($price == null || $price == '') {
-            $log[] = "Preço é obrigatório";
-        }
-        
-        return $log;
+    return $log;
     }
+
 }
+   

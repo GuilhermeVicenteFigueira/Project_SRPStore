@@ -10,12 +10,12 @@ use src\Infra\FileProductRepository;
 final class ProductService 
 {
     public function __construct(
-        private SimpleProductValidator $validator,
-        private FileProductRepository $repo
+        private FileProductRepository $repo,
+        private SimpleProductValidator $validator
     ) {
     }
 
-    public function register(array $input): bool
+    public function create(array $input): bool
     {
         $errors = $this->validator->validate($input);
         if ($errors !== []) {
@@ -30,6 +30,12 @@ final class ProductService
         $this->repo->saveProduct($product);
         return true;
     }
+
+    public function list(): array
+    {
+        return $this->repo->findAll(); 
+    }
+
 
     
 }

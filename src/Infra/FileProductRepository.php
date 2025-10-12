@@ -23,24 +23,27 @@ final class  FileProductRepository implements ProductRepository
 
     
    public function saveProduct(array $product): void
+{
+    $products = json_decode(file_get_contents($this->filePath), true) ?: [];
+
+
+    $product['id'] = $products ? max(array_column($products, 'id')) + 1 : 1;
+
+ 
+    $products[] = $product;
+
+    file_put_contents(
+        $this->filePath,
+        json_encode($products, JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT)
+    );
+}
+
+
+    public function findAll(): array
     {
-        $product = json_decode(file_get_contents($this->filePath), true) ?: [];
-
-        
-        $product['id'] = $product ? max(array_column($product, 'id')) + 1 : 1;
-
-        $product[] = $product;
-
-        file_put_contents(
-            $this->filePath,
-            json_encode($product, JSON_UNESCAPED_UNICODE) . PHP_EOL,
-            FILE_APPEND
-        );
-    }
-
-    public function findAll(): array 
-    {
-        
+        $data = file_get_contents($this->filePath); 
+        $products = json_decode($data, true);      
+        return $products ?: []; 
     }
 
 }

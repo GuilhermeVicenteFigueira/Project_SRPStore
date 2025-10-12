@@ -8,7 +8,6 @@ interface  ProductValidator
 {
     /**
      * @param array{
-     * id?:int,
      * name?:string,
      * price?:float
      * } $input
