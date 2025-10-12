@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Src\Contracts;
+namespace src\Contracts;
 
-interface Productrepository
+interface ProductRepository
 {
     /**
      * @param array{
@@ -13,5 +13,8 @@ interface Productrepository
      * price:float
      * } $products
      */
+    
     public function saveProduct(array $products): void;
+
+    public function findAll(): array;
 }

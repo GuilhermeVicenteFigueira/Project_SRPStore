@@ -2,7 +2,7 @@
     "name": "pichau/solid_products",
     "autoload": {
         "psr-4": {
-            "Pichau\\SolidProducts\\": "src/"
+            "Src\\": "src/"
         }
     },
     "authors": [
